@@ -12,8 +12,7 @@ def convert_np_to_xr(np_array, xr_array):
     return xr_new
 
 def apply_point_condition(data, func, args):
-    print(args)
-    print(data)
+
     args = (data,) + args
     output = xr.apply_ufunc(func, *args, input_core_dims = [["time"]], output_core_dims = [["time"]])
 

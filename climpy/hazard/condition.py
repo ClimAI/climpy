@@ -37,8 +37,8 @@ class VolumeHazardCondition(SpatialHazardCondition):
 
 ################ Point Hazard Conditions ########################
 
-class ThresholdPercentile(PointHazardCondition):
-    def __init__(self, operator_str:str, q:float) -> None:
+class ThresholdQuantile(PointHazardCondition):
+    def __init__(self, operator_str:str, quantile:float) -> None:
         
         operators = {
         '>': operator.gt,
@@ -47,7 +47,7 @@ class ThresholdPercentile(PointHazardCondition):
 
         if operator_str in operators:
             comparision_operator = operators[operator_str]
-            func = lambda x : xr.where(comparision_operator(x, np.nanpercentile(x, 100*q)) , 1, 0)
+            func = lambda x : xr.where(comparision_operator(x, np.nanpercentile(x, 100*quantile)) , 1, 0)
         else:
             raise ValueError(f"operator_str should be one of '>' or '<' instead of {operator_str}")
 
@@ -73,8 +73,8 @@ class ConnectStructure(VolumeHazardCondition):
         self.returns_event = True #! Need to automate this at some point.
    
 class MaskArea(ArealHazardCondition):
-    def __init__(self, shp:geopandas.GeoDataFrame) -> None:
-        
+    def __init__(self, shp_path:str) -> None:
+        shp = geopandas.read_file(shp_path)
         self.args = (shp,)
         
         def func(x, shp):

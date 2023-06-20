@@ -14,11 +14,17 @@ class PointHazardCriterion(HazardCriterion):
 
 
 class SpatialHazardCriterion(HazardCriterion):
-    pass
+    def __init__(self, sequence:list) -> None:
+        self.sequence = sequence
+        
+    def valid_criterion(self):
+        assert self.sequence[-1].return_binary == True
 
 class ArialHazardCriterion(SpatialHazardCriterion):
-    pass
+    def valid_criterion(self):
+        assert self.sequence[-1].return_binary == True
 
 class VolumenHazardCriterion(SpatialHazardCriterion):
-    pass
+    def valid_criterion(self):
+        assert self.sequence[-1].return_binary == True
 
