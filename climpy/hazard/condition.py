@@ -11,33 +11,33 @@ from shapely.geometry import mapping
 
 from climpy.hazard.utils import convert_np_to_xr, apply_point_condition, apply_spatial_condition
 
-class HazardCondition(ABC):
+class Condition(ABC):
     @abstractmethod
     def __call__(self, data):
         pass
 
-class PointHazardCondition(HazardCondition):
+class PointCondition(Condition):
     def __call__(self, data):
         out = apply_point_condition(data, self.func, self.args)
         out = convert_np_to_xr(out, data)
         return out.transpose("time", ...)
 
-class SpatialHazardCondition(HazardCondition):
+class SpatialCondition(Condition):
     def __call__(self, data):
         out = apply_spatial_condition(data, self.func, self.args)
         out = convert_np_to_xr(out, data)
         return out.transpose("time", ...)
 
 
-class ArealHazardCondition(SpatialHazardCondition):
+class ArealCondition(SpatialCondition):
     pass
     
-class VolumeHazardCondition(SpatialHazardCondition):
+class VolumeCondition(SpatialCondition):
     pass
 
-################ Point Hazard Conditions ########################
+################ Point  Conditions ########################
 
-class ThresholdQuantile(PointHazardCondition):
+class ThresholdQuantile(PointCondition):
     def __init__(self, operator_str:str, quantile:float) -> None:
         
         operators = {
@@ -58,9 +58,9 @@ class ThresholdQuantile(PointHazardCondition):
 
         self.returns_event = False #! Need to automate this at some point.
 
-################ Areal Hazard Condtions ########################
+################ Areal  Condtions ########################
 
-class ConnectStructure(VolumeHazardCondition):
+class ConnectStructure(VolumeCondition):
     def __init__(self, structure:np.array) -> None:
         
         args = (structure,)
@@ -72,7 +72,7 @@ class ConnectStructure(VolumeHazardCondition):
 
         self.returns_event = True #! Need to automate this at some point.
    
-class MaskArea(ArealHazardCondition):
+class MaskArea(ArealCondition):
     def __init__(self, shp_path:str) -> None:
         shp = geopandas.read_file(shp_path)
         self.args = (shp,)
@@ -88,16 +88,16 @@ class MaskArea(ArealHazardCondition):
         self.returns_event = False  #! Need to automate this at some point.
 
 
-class AverageArea(ArealHazardCondition):
+class AverageArea(ArealCondition):
     def __init__(self) -> None:
 
 
-        func = lambda x : x.sum(dim=["lat", "lon"]) 
+        func = lambda x : x.mean(dim=["lat", "lon"]) 
 
         self.func = func
         self.args = ( )
     
-################ Volume Hazard Condtions ########################
+################ Volume  Condtions ########################
 
 class Sequence():
     def __init__(self, sequence):

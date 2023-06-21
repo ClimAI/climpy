@@ -1,30 +1,35 @@
 from abc import ABC, abstractmethod
+from copy import deepcopy
 
-class HazardCriterion(ABC):
-    @abstractmethod
-    def valid_criterion(self):
-        pass
+class Criterion(ABC):
+
+    def apply_conditions(self, x):
+        self.data = deepcopy(x)
+        for condition in self.sequence:
+            x = condition(x)
+        return x
+
+    def valid_conditions(self):
+        assert self.sequence[-1].return_binary == True
     
 
-class PointHazardCriterion(HazardCriterion):
+class PointCriterion(Criterion):
     def __init__(self, sequence:list) -> None:
         self.sequence = sequence
-    def valid_criterion(self):
-        assert self.sequence[-1].return_binary == True
 
 
-class SpatialHazardCriterion(HazardCriterion):
+class SpatialCriterion(Criterion):
     def __init__(self, sequence:list) -> None:
         self.sequence = sequence
         
     def valid_criterion(self):
         assert self.sequence[-1].return_binary == True
 
-class ArialHazardCriterion(SpatialHazardCriterion):
+class ArialCriterion(SpatialCriterion):
     def valid_criterion(self):
         assert self.sequence[-1].return_binary == True
 
-class VolumenHazardCriterion(SpatialHazardCriterion):
+class VolumenCriterion(SpatialCriterion):
     def valid_criterion(self):
         assert self.sequence[-1].return_binary == True
 

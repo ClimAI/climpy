@@ -1,33 +1,36 @@
 from abc import ABC, abstractmethod
 from copy import deepcopy
+
+from typing import List
+
 import numpy as np
 
-from climpy.hazard.event import (PointHazardEvent, 
-                                 ArealHazardEvent, 
-                                 VolumeHazardEvent,
-                                 PointHazardEventList,
-                                 ArealHazardEventList,
-                                 VolumeHazardEventList)
+from climpy.hazard.event import (PointEvent, 
+                                 ArealEvent, 
+                                 VolumeEvent,
+                                 PointEventList,
+                                 ArealEventList,
+                                 VolumeEventList)
 
+from climpy.hazard.criterion import Criterion
+from climpy.hazard.condition import Condition
 
-class Hazard(ABC):
+class Hazard(Criterion):
     
     @abstractmethod
     def get_event(self):
         pass
-    @abstractmethod
-    def apply_criterion(self):
-        pass
+
     @abstractmethod
     def all_events(self):
         pass
 
 class PointHazard(Hazard):
-    def __init__(self, criterion) -> None:
+    def __init__(self, condition_sequence = List[Condition]) -> None:
         
-        self.sequence = criterion.sequence
+        self.sequence = condition_sequence
 
-    def apply_criterion(self, x):
+    def apply_conditions(self, x):
         self.data = deepcopy(x)
         for condition in self.sequence:
             x = condition(x)
@@ -40,10 +43,11 @@ class PointHazard(Hazard):
         event_data = self.data.where(self.location==event_index, drop=True)
         event_location = self.location.where(self.location==event_index, drop=True)        
 
-        return PointHazardEvent(event_data, event_location)
+        return PointEvent(event_data, event_location)
 
     def all_events(self):
-        return PointHazardEventList([self.get_event(i) for i in range(self.n_events)])
+        return PointEventList([self.get_event(i) for i in range(self.n_events)])
+    
 
 class SpatialHazard(Hazard):
     def __init__(self, criterion) -> None:
@@ -58,8 +62,6 @@ class SpatialHazard(Hazard):
         self.location = x
         self.n_events = np.unique(x).shape[0]-1
 
-    
-
 class ArealHazard(SpatialHazard):
     def __init__(self, criterion) -> None:
         
@@ -70,7 +72,7 @@ class ArealHazard(SpatialHazard):
         event_data = self.data.where(self.location==event_index, drop=True)
         event_location = self.location.where(self.location==event_index, drop=True)        
 
-        return ArealHazardEvent(event_data, event_location)
+        return ArealEvent(event_data, event_location)
     
     def all_events(self,):
-        return ArealHazardEventList([self.get_event(i+1) for i in range(self.n_events)])
+        return ArealEventList([self.get_event(i+1) for i in range(self.n_events)])
