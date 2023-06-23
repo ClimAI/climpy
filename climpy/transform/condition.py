@@ -9,7 +9,7 @@ import geopandas
 import rioxarray
 from shapely.geometry import mapping
 
-from climpy.hazard.utils import convert_np_to_xr, apply_point_condition, apply_spatial_condition
+from climpy.transform.utils import convert_np_to_xr, apply_point_condition, apply_spatial_condition
 
 class Condition(ABC):
     @abstractmethod
@@ -18,6 +18,9 @@ class Condition(ABC):
 
 class PointCondition(Condition):
     def __call__(self, data):
+
+        assert len(data.dims) == 1 and data.dims[0] == "time", f"PointCondition can only have ('time') dimension instead of {data.dims}"
+        
         out = apply_point_condition(data, self.func, self.args)
         out = convert_np_to_xr(out, data)
         return out.transpose("time", ...)
@@ -33,6 +36,9 @@ class ArealCondition(SpatialCondition):
     pass
     
 class VolumeCondition(SpatialCondition):
+    pass
+
+class PolymorphicCondition(Condition):
     pass
 
 ################ Point  Conditions ########################

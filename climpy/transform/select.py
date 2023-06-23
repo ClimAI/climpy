@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import timedelta
 from typing import Union
-from climpy.hazard.event import EventList
+from climpy.transform.event import EventList
 import operator
 
 

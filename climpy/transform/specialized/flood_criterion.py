@@ -1,5 +1,5 @@
-from climpy.hazard.criterion import ArialHazardCriterion
-from climpy.hazard.condition import ThresholdPercentile, ConnectStructure
+from climpy.transform.criterion import ArialHazardCriterion
+from climpy.transform.condition import ThresholdPercentile, ConnectStructure
 
 import numpy as np
 

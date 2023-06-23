@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 from copy import deepcopy
-from climpy.hazard.utils import reduce_datetime_precision
+from climpy.transform.utils import reduce_datetime_precision
 from datetime import timedelta
 from typing import Union, List
 import operator

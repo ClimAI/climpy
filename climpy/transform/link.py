@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime, timedelta
 
 import xarray as xr
-from climpy.hazard.event import EventList
+from climpy.transform.event import EventList
 import numpy as np
 
 ################### Links ####################
