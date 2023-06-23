@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "climpy"
-version = "0.0.0.2"
+version = "0.0.0.3"
 description = "Tools to analyse climate data for machine learning and event analysis"
 authors = ["Mohit Anand <mohit@climai.earth>"]
 readme = "README.md"
