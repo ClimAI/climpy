@@ -40,6 +40,8 @@ jobs:
       run: sudo apt -y install libgeos-dev
     - name: Install poetry dependencies
       run: poetry install         
+    - name: Install pytest cov
+      run: poetry add pytest-cov
     - name: Test with pytest
       run: |
         poetry run pytest --cov .

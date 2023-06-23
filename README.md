@@ -1,5 +1,7 @@
 # climpy
 
+<center> <img src="climpy.png" alt="logo" style="width:100px;"/></center> 
+
 Climpy is working to help climate researchers to analyse climate data, write in formats ready to be used with machine learning models and analyse the accuracy of model predictions
 
 https://github.com/climai/climpy/actions/workflows/python-app.yml/badge.svg
