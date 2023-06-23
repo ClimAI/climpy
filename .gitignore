@@ -168,3 +168,10 @@ metric/__pycache__
 
 aux_files/
 aux_files
+
+**/__pycache__/**
+
+# scratch
+scratch.ipynb
+
+*.ipynb_checkpoints

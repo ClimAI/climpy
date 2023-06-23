@@ -5,15 +5,15 @@ from typing import List
 
 import numpy as np
 
-from climpy.hazard.event import (PointEvent, 
+from climpy.transform.event import (PointEvent, 
                                  ArealEvent, 
                                  VolumeEvent,
                                  PointEventList,
                                  ArealEventList,
                                  VolumeEventList)
 
-from climpy.hazard.criterion import Criterion
-from climpy.hazard.condition import Condition
+from climpy.transform.criterion import Criterion
+from climpy.transform.condition import Condition
 
 class Hazard(Criterion):
     
