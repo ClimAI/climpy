@@ -1,6 +1,10 @@
 # climpy
 
+<center> <img src="climpy.png" alt="logo" style="width:100px;"/></center> 
+
 Climpy is working to help climate researchers to analyse climate data, write in formats ready to be used with machine learning models and analyse the accuracy of model predictions
+
+https://github.com/climai/climpy/actions/workflows/python-app.yml/badge.svg
 
 The package is divided into three parts
 - Transform: The `transform` module transforms by applying different conditions on your dataset. The class diagram below will detail on the application of the module.
