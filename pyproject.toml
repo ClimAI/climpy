@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "climpy"
-version = "0.0.0.3"
+version = "0.0.0.4"
 description = "Tools to analyse climate data for machine learning and event analysis"
 authors = ["Mohit Anand <mohit@climai.earth>"]
 readme = "README.md"
@@ -27,6 +27,11 @@ pytest = "*"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
 
 [tool.black]
 line-length=88
