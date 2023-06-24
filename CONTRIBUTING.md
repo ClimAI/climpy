@@ -33,6 +33,7 @@ poetry install
 **Step 6: Install pre-commit**
 ```
 pre-commit install
+pre-commit run --all-files #To see if the repo passes Flake8 and Black formatting 
 ```
 **Step 7: Check everything is setup correctly**
 ```
