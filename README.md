@@ -2,7 +2,7 @@
 <center> <img src="climpy.png" alt="logo" style="width:250px;"/></center> 
 
 ![Build Badge](https://github.com/climai/climpy/actions/workflows/python-app.yml/badge.svg)
-[![codecov](https://codecov.io/gh/ClimAI/climpy/branch/main/graph/badge.svg?token=VFWB1PVALY)
+![codecov](https://codecov.io/gh/ClimAI/climpy/branch/main/graph/badge.svg?token=VFWB1PVALY)
 
 Climpy helps you to work with climata data to analyse climate related event. The functionalities include
 - Finding temporal or spatio-temporal events defined by a `preset conditions` or defining your conditions

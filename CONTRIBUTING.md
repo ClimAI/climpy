@@ -30,10 +30,15 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry install
 ```
 
-**Step 6: Check everything is setup correctly**
+**Step 6: Install pre-commit**
+```
+pre-commit install
+```
+**Step 7: Check everything is setup correctly**
 ```
 pytest --cov tests
 ```
+> **_NOTE:_**  Remeber to change to the `issue` branch before contributing. No code can be pushed to main and develop.
 
 ## Structure of the package
 

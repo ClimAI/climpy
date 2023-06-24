@@ -32,6 +32,7 @@ mkdocs = "*"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
+pre-commit = "^3.3.3"
 
 [tool.black]
 line-length=88
