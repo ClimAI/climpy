@@ -1,116 +1,22 @@
-# climpy
 
-<center> <img src="climpy.png" alt="logo" style="width:100px;"/></center> 
-
-
-Climpy is working to help climate researchers to analyse climate data, write in formats ready to be used with machine learning models and analyse the accuracy of model predictions
+<center> <img src="climpy.png" alt="logo" style="width:250px;"/></center> 
 
 ![Build Badge](https://github.com/climai/climpy/actions/workflows/python-app.yml/badge.svg)
-[![codecov](https://codecov.io/gh/ClimAI/climpy/branch/main/graph/badge.svg?token=VFWB1PVALY)](https://codecov.io/gh/ClimAI/climpy)
+![codecov](https://codecov.io/gh/ClimAI/climpy/branch/main/graph/badge.svg?token=VFWB1PVALY)
+
+Climpy helps you to work with climata data to analyse climate related event. The functionalities include
+- Finding temporal or spatio-temporal events defined by a `preset conditions` or defining your conditions
+- Selecting events based on some `preset selectors` or custom selectors
+- Doing `spatio-temporal cross validation` and writing them in machine learning friendly formats like `zarr`
+- Providing en exhaustive set of `metrics` used with climate data or climate related hazards. 
+](https://codecov.io/gh/ClimAI/climpy)
 
 The package is divided into three parts
-- Transform: The `transform` module transforms by applying different conditions on your dataset. The class diagram below will detail on the application of the module.
+- The package has three modules
+    - `transform`: It has a set of conditions forming a criterion which can be applied to any dataset. A subclass of criterion called hazard helps to create an event. Select class helps in selecting the events based on some rules. Lastly datasets can be linked to events. 
+    - `ml_data`: The module helps to create X, Y pairs of machine learning dataset. It focuses on rigorous spatio-temporal cross validation and writing datasets in efficient dataset formats like zarr
+    - `metrics`: The module provides an exhaustive list of metrics for spatio-temporal cross validation
 
-```mermaid
----
-Transform
----
-
-classDiagram
-
-Hazard <|-- Criterion
-
-class Condition{
-    args
-    returns_event
-    func()
-}
-
-class Criterion{
-    sequence
-    apply_conditions()
-    valid_conditions(sequence) bool
-}
-
-class Hazard{
-
-    event_locations
-    n_events
-    apply_conditions()
-    valid_conditions()
-    get_event(n) Event
-    all_events() EventList
-}
-
-class DataArray{
-    xr.DataArray variables
-    xr.DataArray functions()
-}
-
-class LinkDataHazard{
-    on_events()
-    get_values()
-}
-
-class Event{
-    data
-    location
-    start_time
-    end_time
-    
-    r
-    tau
-
-    set_intensity()
-}
-
-class EventList{
-    event_list
-}
-
-DataArray -- LinkDataHazard
-LinkDataHazard -- Hazard
-Hazard *-- EventList
-EventList *--Event
-Condition .. Criterion
-Condition .. Hazard
-```
-
-- ml_data: The `ml_data` module creates/writes data to be used conveniently for different kinds of machine learning models. The class diagram below will detail on the application of the module.
-
-```mermaid
----
-Data ML
----
-classDiagram
-
-
-List *-- DataArray
-
-class X{
-    values
-    meta
-}
-
-class Y{
-    values
-    meta
-}
-
-class MLData{
-    X
-    Y
-    tvt_split()
-}
-
-
-class DataArray{
-    xr.DataArray variables
-    xr.DataArray functions()
-}
-
-class Split
-
-```
-
-- Metrics: The `metrics` module can be applied to observed and simulated variables. This would include exhaustive set of different metrics that can be used on climate related data
+Installation:
+- The package requires `libgeos-dev`. On Debain(linux) it can be installed using the command `sudo apt -y install libgeos-dev`. On mac one can use `brew install geos` Cartopy has `libgeos-dev`  as a dependency. # More testing required.
+- Then the package can be installed using `pip install climpy`

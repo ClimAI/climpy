@@ -16,8 +16,14 @@ from climpy.transform.utils import (
 
 
 class Condition(ABC):
+    def init__(self):
+        self.returns_event = True
+
     @abstractmethod
     def __call__(self, data):
+        pass
+
+    def check_valid(self, data):
         pass
 
 
