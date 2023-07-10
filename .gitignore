@@ -175,7 +175,4 @@ aux_files
 scratch.ipynb
 *.ipynb_checkpoints
 
-# Remove venv
-.venv_dev
-.venv_prod
 

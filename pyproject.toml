@@ -16,6 +16,7 @@ geopandas = "^0.13.2"
 rioxarray = "^0.14.1"
 cartopy = "^0.21.1"
 scipy = "^1.10.1"
+netcdf4 = "^1.6.4"
 
 
 [build-system]
@@ -33,6 +34,7 @@ mkdocs = "*"
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
 pre-commit = "^3.3.3"
+ipykernel = "^6.23.3"
 
 [tool.black]
 line-length=88
